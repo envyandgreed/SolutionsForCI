@@ -1,5 +1,6 @@
 package chapter8;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -48,5 +49,37 @@ public class newSixty {
 
 
         }
+    }
+
+    ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if (pRoot == null){
+            return result;
         }
+        Queue<TreeNode> layer = new LinkedList<>();
+        ArrayList<Integer> layerList = new ArrayList<>();
+        int index = 0;
+        int count = 1;
+        layer.add(pRoot);
+        while(!layer.isEmpty()){
+            TreeNode cur = layer.poll();
+            layerList.add(cur.val);
+            index++;
+            if (cur.left != null){
+                layer.add(cur.left);
+            }
+            if (cur.right != null){
+                layer.add(cur.right);
+            }
+
+            if (index == count){
+                count = layer.size();
+                index = 0;
+                result.add(layerList);
+                layerList = new ArrayList<>();
+            }
+        }
+
+        return result;
+    }
 }
